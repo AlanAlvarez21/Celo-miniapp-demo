@@ -1,0 +1,24 @@
+{
+  "fc:version": "2024.10.16",
+  "fc:name": "IQ Quiz Contest",
+  "fc:description": "Test your knowledge with our IQ quiz, pay 0.1 CELO to access your results",
+  "fc:image": "https://miniappcelo-demo.vercel.app/og-image.png",
+  "fc:icon": "https://miniappcelo-demo.vercel.app/icon-192x192.png",
+  "fc:url": "https://miniappcelo-demo.vercel.app",
+  "fc:accountAssociation": {
+    "fc:personal_sign:required": true,
+    "fc:siwe:required": true
+  },
+  "fc:frame": {
+    "fc:frame:version": "next",
+    "fc:frame:image": "https://miniappcelo-demo.vercel.app/og-image.png",
+    "fc:frame:post_url": "https://miniappcelo-demo.vercel.app/api/frame",
+    "fc:frame:button:1": "Start Quiz",
+    "fc:frame:button:2": "View Leaderboard",
+    "fc:frame:button:3": "Connect Wallet",
+    "fc:frame:state": {
+      "quizStarted": false,
+      "userConnected": false
+    }
+  }
+}
