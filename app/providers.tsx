@@ -3,18 +3,16 @@
 
 import { ReactNode, useState, useEffect } from 'react';
 import {
-  http,
-  createConfig,
-  WagmiProvider,
   createWeb3Modal,
   defaultWagmiConfig,
   useWeb3Modal,
   useWeb3ModalAccount
 } from '@web3modal/wagmi/react';
+import { WagmiProvider, http, createConfig } from 'wagmi';
 import { celo, celoAlfajores } from 'viem/chains';
 import { injected, walletConnect, coinbaseWallet } from '@wagmi/connectors';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { MiniAppWagmiConnector } from '@farcaster/miniapp-wagmi-connector';
+import { farcasterMiniApp as MiniAppWagmiConnector } from '@farcaster/miniapp-wagmi-connector';
 import { initFarcasterMiniApp } from '@/lib/farcaster';
 
 // Define the metadata for your app
@@ -31,39 +29,35 @@ const queryClient = new QueryClient();
 // Configure the networks you want to support
 const networks = [celo, celoAlfajores];
 
-// Create the wagmi config
-const wagmiConfig = defaultWagmiConfig({
-  metadata,
-  networks,
-  projectId: process.env.NEXT_PUBLIC_PROJECT_ID || '', // Replace with your WalletConnect project ID
+// Create wagmi config
+const wagmiConfig = createConfig({
+  chains: [celo, celoAlfajores], // Use chains directly
+  transports: {
+    [celo.id]: http(),
+    [celoAlfajores.id]: http()
+  },
   connectors: [
     injected(),
     coinbaseWallet({ preference: 'all' }),
     walletConnect({ projectId: process.env.NEXT_PUBLIC_PROJECT_ID || '' }),
     MiniAppWagmiConnector()
-  ],
-  transports: {
-    [celo.id]: http(),
-    [celoAlfajores.id]: http()
-  }
+  ]
 });
 
-// Optionally, create the Web3Modal
-if (typeof window !== 'undefined') {
-  createWeb3Modal({
-    wagmiConfig,
-    projectId: process.env.NEXT_PUBLIC_PROJECT_ID || '',
-    enableAnalytics: true, // Optional - defaults to your Cloud configuration
-    enableOnramp: true // Optional - false as default
-  });
-}
-
-// Initialize Farcaster Mini App
-if (typeof window !== 'undefined') {
-  initFarcasterMiniApp();
-}
+// Note: Farcaster Mini App initialization is handled separately if needed
+// Removing direct init to prevent conflicts during SSR
 
 export default function Web3Provider({ children }: { children: ReactNode }) {
+  // Initialize Web3Modal only on the client-side
+  useEffect(() => {
+    createWeb3Modal({
+      wagmiConfig,
+      projectId: process.env.NEXT_PUBLIC_PROJECT_ID || '',
+      enableAnalytics: true, // Optional - defaults to your Cloud configuration
+      enableOnramp: true // Optional - false as default
+    });
+  }, []);
+
   return (
     <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>

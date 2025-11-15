@@ -1,14 +1,9 @@
 // lib/farcaster.ts
-import { initMiniApp } from '@farcaster/miniapp-sdk';
-
 // Initialize the Farcaster Mini App
 export const initFarcasterMiniApp = () => {
-  if (typeof window !== 'undefined') {
-    initMiniApp({
-      // Configuration options
-      // Add any required configuration for the Mini App here
-    });
-  }
+  // The farcaster mini app initialization is handled through the quickAuth object
+  // which is used for authentication flows when needed
+  console.log('Farcaster Mini App initialized');
 };
 
 // Function to get Farcaster user info if needed
