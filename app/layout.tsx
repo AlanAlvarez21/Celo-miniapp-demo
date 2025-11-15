@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
-import Web3Provider from './providers'
+import dynamic from 'next/dynamic'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -29,6 +29,12 @@ export const metadata: Metadata = {
     apple: '/apple-icon.png',
   },
 }
+
+// Dynamically import the Web3 provider only on the client side
+const Web3Provider = dynamic(() => import('./providers.client'), {
+  ssr: false,
+  loading: () => <div>Loading...</div>
+});
 
 export default function RootLayout({
   children,
