@@ -1,0 +1,39 @@
+{
+  "accountAssociation": {
+    "header": "eyJmaWQiOjEzOTk0NjcsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHgyOEMzZkJjNDRCMENCNzE1MGFBNTM3RGE4RDEzN2Q1N2VjYkQ1ZDZkIn0",
+    "payload": "eyJkb21haW4iOiJjZWxvLW1pbmlhcHAtZGVtby1zZXZlbi52ZXJjZWwuYXBwIn0",
+    "signature": "puECcOSP1uIx5EgHICjPtPyAzXJJtkxsDwyAbsVs/g8IA0EZP8Hh7Lze1b7pCn27NcBaUrYnL+tg/Om8qyDeWxs="
+  },
+  "miniapp": {
+    "version": "1",
+    "name": "IQ Quiz Contest",
+    "iconUrl": "https://celo-miniapp-demo-seven.vercel.app/icon-192x192.png",
+    "homeUrl": "https://celo-miniapp-demo-seven.vercel.app",
+    "splashImageUrl": "https://celo-miniapp-demo-seven.vercel.app/icon-192x192.png",
+    "splashBackgroundColor": "#ffffff",
+    "requiredChains": [
+      "eip155:42220"
+    ],
+    "requiredCapabilities": [
+      "actions.signIn",
+      "wallet.getEthereumProvider"
+    ],
+    "subtitle": "Test your knowledge in our app",
+    "description": "Pay 0.1 CELO to access your quiz results and compete on the leaderboard.",
+    "screenshotUrls": [
+      "https://celo-miniapp-demo-seven.vercel.app/og-image.png"
+    ],
+    "primaryCategory": "games",
+    "tags": [
+      "quiz",
+      "education",
+      "blockchain",
+      "celo"
+    ],
+    "heroImageUrl": "https://celo-miniapp-demo-seven.vercel.app/og-image.png",
+    "tagline": "Test your knowledge in our app",
+    "ogTitle": "IQ Quiz Contest",
+    "ogDescription": "Pay 0.1 CELO to access your quiz results and compete on the leaderboard.",
+    "ogImageUrl": "https://celo-miniapp-demo-seven.vercel.app/og-image.png"
+  }
+}
