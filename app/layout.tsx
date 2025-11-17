@@ -1,11 +1,9 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { GeistSans } from 'geist/font/sans'
+import { GeistMono } from 'geist/font/mono'
 import { Analytics } from '@vercel/analytics/next'
 import dynamic from 'next/dynamic'
 import './globals.css'
-
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: 'IQ Quiz Contest',
@@ -32,6 +30,7 @@ export const metadata: Metadata = {
 
 // Dynamically import the Web3 provider only on the client side
 const Web3Provider = dynamic(() => import('./providers.client'), {
+  ssr: false, // This is the crucial part
   loading: () => <div>Loading...</div>
 });
 
@@ -41,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className={`font-sans antialiased`}>
         <Web3Provider>
           {children}
