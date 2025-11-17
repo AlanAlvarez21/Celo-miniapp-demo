@@ -395,6 +395,15 @@ export default function Web3QuizApp() {
     transactionHash,
   } = useCeloPayment();
 
+  // Handle payment success
+  useEffect(() => {
+    if (paymentStatus === 'success') {
+      setHasPaid(true); // Allow access to score
+      setScreen('score'); // Navigate to score screen
+    } else if (paymentStatus === 'failed') {
+      alert('Payment failed. Please try again.');
+    }
+  }, [paymentStatus]);
 
   if (!mounted) {
     return null;
@@ -428,20 +437,10 @@ export default function Web3QuizApp() {
     if (!isWalletConnected) {
       connectWallet();
     } else {
-      // If wallet is connected, make payment to default receiving address
+      // If wallet is connected, make payment to the configured receiving address
       makePaymentToDefault('0.1'); // Send 0.1 CELO to the configured receiving address
     }
   };
-
-  // Handle payment success
-  useEffect(() => {
-    if (paymentStatus === 'success') {
-      setHasPaid(true); // Allow access to score
-      setScreen('score'); // Navigate to score screen
-    } else if (paymentStatus === 'failed') {
-      alert('Payment failed. Please try again.');
-    }
-  }, [paymentStatus]);
 
   const handleSelectAnswer = (optionIndex: number) => {
     const newAnswers = [...answers]
