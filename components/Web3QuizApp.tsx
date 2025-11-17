@@ -6,6 +6,7 @@ import { Card } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { Clock, Brain, CheckCircle2, XCircle, ChevronLeft, ChevronRight, ArrowRight, Coins, Shield, Users, BookOpen, Sparkles, Trophy, Zap, Medal, Wallet, CoinsIcon } from 'lucide-react'
 import { useCeloPayment } from '@/hooks/useCeloPayment'
+import { sdk } from '@farcaster/miniapp-sdk'
 
 type LeaderboardEntry = {
   id: string
@@ -404,6 +405,22 @@ export default function Web3QuizApp() {
       alert('Payment failed. Please try again.');
     }
   }, [paymentStatus]);
+
+  // Initialize Farcaster Mini App SDK when the app is fully mounted
+  useEffect(() => {
+    if (mounted) {
+      // Check if we're running in a Farcaster Mini App context
+      const url = new URL(window.location.href)
+      const isMiniApp =
+        url.pathname.startsWith('/miniapp') ||
+        url.searchParams.get('miniApp') === 'true'
+
+      if (isMiniApp) {
+        // Call ready once the app is fully loaded
+        sdk.actions.ready()
+      }
+    }
+  }, [mounted])
 
   if (!mounted) {
     return null;
