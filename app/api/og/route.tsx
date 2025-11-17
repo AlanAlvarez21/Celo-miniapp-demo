@@ -1,6 +1,8 @@
 // app/api/og/route.ts
 import { ImageResponse } from '@vercel/og';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);

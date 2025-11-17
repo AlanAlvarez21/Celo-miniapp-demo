@@ -379,6 +379,11 @@ export default function Web3QuizApp() {
     }
   }, [quizStarted, screen, timeLeft])
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Initialize payment hook
   const {
     address,
@@ -389,6 +394,11 @@ export default function Web3QuizApp() {
     isPaymentLoading,
     transactionHash,
   } = useCeloPayment();
+
+
+  if (!mounted) {
+    return null;
+  }
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
