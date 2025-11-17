@@ -32,7 +32,6 @@ export const metadata: Metadata = {
 
 // Dynamically import the Web3 provider only on the client side
 const Web3Provider = dynamic(() => import('./providers.client'), {
-  ssr: false,
   loading: () => <div>Loading...</div>
 });
 

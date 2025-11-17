@@ -1,6 +1,7 @@
 // app/api/frame/route.ts
 import { NextRequest } from 'next/server';
-import { FrameRequest, getFrameMessage, type FrameButton } from '@farcaster/frame-core';
+import { FrameRequest, type FrameButton } from '@farcaster/frame-core';
+import { getFrameMessage } from 'frames.js';
 
 export async function POST(req: NextRequest) {
   const body: FrameRequest = await req.json();
