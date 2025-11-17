@@ -38,15 +38,17 @@ const nextConfig = {
     config.resolve.alias = {
       ...(config.resolve.alias || {}),
       '@react-native-async-storage/async-storage': false,
+      'pino-pretty': false,
     };
 
+    config.plugins.push(
+      new (require('webpack').IgnorePlugin)({
+        resourceRegExp: /^pino-pretty$/,
+        contextRegExp: /pino$/,
+      })
+    );
+
     if (!isServer) {
-      config.plugins.push(
-        new (require('webpack').IgnorePlugin)({
-          resourceRegExp: /^pino-pretty$/,
-          contextRegExp: /pino$/,
-        })
-      );
     }
 
     return config;
